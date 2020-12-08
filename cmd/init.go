@@ -20,6 +20,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+  "github.com/OpenPeeDeeP/xdg"
+	"strings"
 )
 
 var Cookie string
@@ -42,7 +44,11 @@ to quickly create a Cobra application.`,
 
 func init() {
 	rootCmd.AddCommand(initCmd)
+	configHome := xdg.ConfigHome()
+	path := []string{configHome, "AoC2020-go"}
+	aocConfig := strings.Join(path, "/")
 	initCmd.Flags().StringP("cookie", "c", "", "Set your session key for AoC")
+	initCmd.Flags().StringP("input_path","i",aocConfig, "Where to put input files")
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
